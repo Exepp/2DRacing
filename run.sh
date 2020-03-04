@@ -1,0 +1,1 @@
+make config=release && ./bin/linux_x86_64/Release/GGEngine/GGEngine

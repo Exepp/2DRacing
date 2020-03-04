@@ -1,0 +1,9 @@
+/bin_inter/
+/bin/
+.vs/
+.vscode/
+.git/
+**/*.vcxproj*
+*.sln
+**/Makefile
+**.make
