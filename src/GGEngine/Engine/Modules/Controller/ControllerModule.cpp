@@ -12,6 +12,11 @@ ControllerModule::ControllerModule()
     setBinding({ sf::Keyboard::Key::A, InputDivice::Keyboard }, ActionKey::MoveLeft);
     setBinding({ sf::Keyboard::Key::D, InputDivice::Keyboard }, ActionKey::MoveRight);
 
+    setBinding({ sf::Keyboard::Key::Up, InputDivice::Keyboard }, ActionKey::AccForward);
+    setBinding({ sf::Keyboard::Key::Down, InputDivice::Keyboard }, ActionKey::AccBackward);
+    setBinding({ sf::Keyboard::Key::Left, InputDivice::Keyboard }, ActionKey::TurnLeft);
+    setBinding({ sf::Keyboard::Key::Right, InputDivice::Keyboard }, ActionKey::TurnRight);
+
     setBinding({ sf::Keyboard::Key::LControl, InputDivice::Keyboard }, ActionKey::ZoomIn);
     setBinding({ sf::Keyboard::Key::Space, InputDivice::Keyboard }, ActionKey::ZoomOut);
 

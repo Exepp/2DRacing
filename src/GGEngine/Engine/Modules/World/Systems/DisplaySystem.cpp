@@ -43,5 +43,5 @@ void DisplaySystem::drawCollisionGrid()
             displayModule.drawWorldLine(Vec2f(right, bottom), Vec2f(left, bottom), color);
             displayModule.drawWorldLine(Vec2f(left, bottom), Vec2f(left, top), color);
         }
-    displayModule.drawWorldPoint({ 0, 0 }, 1, sf::Color::Red);
+    displayModule.drawWorldPoint({ 0, 0 }, 0.1, sf::Color::Red);
 }

@@ -18,7 +18,7 @@ void PhysicsSystem::update(epp::EntityManager& entityManager, float dt)
     entityManager.updateSelection(staticEnts);
 
     resolveCollisions(entityManager);
-    applyGravity(dt);
+    // applyGravity(dt);
     resolveVelocities(dt);
 }
 
