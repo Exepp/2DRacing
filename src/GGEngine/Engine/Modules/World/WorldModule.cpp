@@ -20,11 +20,6 @@ WorldModule::WorldModule()
         phC.setMass(a * b);
         phC.moi = 1.f / 12.f * a * b * (a * a + b * b);
         phC.moiInv = 1.f / phC.moi;
-        // float r = 3.f;
-        // shC.takeShape<CircleShape>().setRadius(r);
-        // phC.setMass(PI_F * r * r);
-        // phC.moi = 1.f / 2.f * PI_F * r * r * r * r;
-        // phC.moiInv = 1.f / phC.moi;
         trC.setPosition({ 0, 0 });
     });
 }

@@ -15,9 +15,9 @@ void InteractionSystem::update(epp::EntityManager& entityManager, float dt)
         PhysicsComponent& phC = ent.getComponent<PhysicsComponent>();
         ShapeComponent& shC = ent.getComponent<ShapeComponent>();
         if (controllerModule.getActionKeyState(ActionKey::AccForward) != KeyState::Released)
-            trC.moveForward(0.1f);
+            phC.velocity += trC.getForwardVector() * 0.1f;
         if (controllerModule.getActionKeyState(ActionKey::AccBackward) != KeyState::Released)
-            trC.moveForward(-0.1f);
+            phC.velocity += trC.getForwardVector() * -0.1f;
 
         if (controllerModule.getActionKeyState(ActionKey::AccForward) != KeyState::Released ||
             controllerModule.getActionKeyState(ActionKey::AccBackward) != KeyState::Released) {
