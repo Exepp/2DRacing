@@ -76,6 +76,8 @@ public:
 
     void setAsBox(const Vec2f& size);
 
+    void setAsCar(const Vec2f& size);
+
     void setVertices(const Vec2f* vertices, int count);
 
     const c2Poly& getDetails() const;

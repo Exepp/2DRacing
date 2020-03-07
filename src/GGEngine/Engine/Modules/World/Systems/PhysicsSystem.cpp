@@ -1,13 +1,13 @@
 #include <GGEngine/Engine/Modules/World/Systems/PhysicsSystem.h>
 
 
-static Vec2f crossProduct(const Vec2f& vec, float a)
+Vec2f crossProduct(const Vec2f& vec, float a)
 {
     return Vec2f(a * vec.y, -a * vec.x);
 }
 
 
-static Vec2f crossProduct(float a, const Vec2f& vec)
+Vec2f crossProduct(float a, const Vec2f& vec)
 {
     return -crossProduct(vec, a);
 }
@@ -61,7 +61,6 @@ void PhysicsSystem::resolveCollisions(epp::EntityManager& entMgr)
 
                    // Solve for the tangent vector
                    Vec2f tangent = rVel - dotProduct(rVel, manifold.n) * manifold.n;
-
                    tangent.normalize();
 
                    // Solve for magnitude to apply along the friction vector
@@ -99,11 +98,13 @@ void PhysicsSystem::applyGravity(float dt)
 void PhysicsSystem::resolveVelocities(float dt)
 {
     for (auto it = dynamicEnts.begin(); it != dynamicEnts.end(); ++it) {
-        it.getComponent<TransformComponent>().moveGlobal(it.getComponent<PhysicsComponent>().velocity * dt);
-        it.getComponent<TransformComponent>().rotate(it.getComponent<PhysicsComponent>().angularVelocity * dt);
-    }
-    for (auto it = staticEnts.begin(); it != staticEnts.end(); ++it) {
-        it.getComponent<TransformComponent>().moveGlobal(it.getComponent<PhysicsComponent>().velocity * dt);
-        it.getComponent<TransformComponent>().rotate(it.getComponent<PhysicsComponent>().angularVelocity * dt);
+        PhysicsComponent& phyC = it.getComponent<PhysicsComponent>();
+        TransformComponent& trC = it.getComponent<TransformComponent>();
+
+        phyC.velocity += phyC.acceleration * dt;
+        trC.moveGlobal(phyC.velocity * dt);
+        trC.rotate(phyC.angularVelocity * dt);
+
+        phyC.acceleration = Vec2f::ZeroVector;
     }
 }

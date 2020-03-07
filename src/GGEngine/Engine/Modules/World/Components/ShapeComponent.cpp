@@ -92,6 +92,23 @@ void PolygonShape::setAsBox(const Vec2f& size)
     setVertices(vertices, 4);
 }
 
+void PolygonShape::setAsCar(const Vec2f& size)
+{
+    transform.rotation = 0.f;
+    transform.scale = Vec2f::OneVector;
+
+    Vec2f vertices[4];
+
+    Vec2f halfSize(size * 0.5f);
+
+    vertices[0] = -halfSize;
+    vertices[1] = { halfSize.x, -halfSize.y / 1.5f };
+    vertices[2] = { halfSize.x, halfSize.y / 1.5f };
+    vertices[3] = { -halfSize.x, halfSize.y };
+
+    setVertices(vertices, 4);
+}
+
 void PolygonShape::setVertices(const Vec2f* vertices, int count)
 {
     if (!count)

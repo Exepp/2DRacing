@@ -20,6 +20,10 @@ struct PhysicsComponent {
         angularVelocity += moiInv * crossProduct(contactVector, impulse);
     }
 
+    Vec2f acceleration;
+    float wheelAngVel[2] = { 0, 0 };
+    float frontWheelsAngle = 0.f;
+
     Vec2f velocity;
     float angularVelocity = 0.f;
 

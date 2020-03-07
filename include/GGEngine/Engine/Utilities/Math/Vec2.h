@@ -9,6 +9,9 @@ struct Vec2 {
     template <typename U>
     explicit Vec2(const Vec2<U>& vec);
 
+    template <typename Other>
+    explicit Vec2(Other const& vec) : Vec2(vec.x, vec.y) {}
+
     Vec2(T x, T y);
 
     Vec2();

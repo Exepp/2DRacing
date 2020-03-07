@@ -77,7 +77,7 @@ inline void Settings<WindowModule>::makeWindow(sf::RenderWindow& window)
     window.create(videoMode, "TheGame", windowType, settings);
 
     view = window.getView();
-    view.setSize(asVec<sf::Vector2f>(ViewResolution));
+    view.setSize(asVec<sf::Vector2f>(ViewResolution * 5.f));
     view.setCenter(sf::Vector2f());
 
     window.setView(view);
