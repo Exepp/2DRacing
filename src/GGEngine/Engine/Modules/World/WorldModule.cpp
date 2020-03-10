@@ -16,9 +16,9 @@ WorldModule::WorldModule()
         auto& trC = creator.constructed<TransformComponent>();
         float a = 4.5f;
         float b = 2.f;
-        shC.takeShape<PolygonShape>().setAsCar(Vec2f(a, b));
+        shC.takeShape<PolygonShape>().setAsBox(Vec2f(a, b));
         phC.setMass(a * b * 300);
-        phC.moi = 1.f / 12.f * phC.mass * (a * a + b * b);
+        phC.moi = 1.f / 8.f * phC.mass * (a * a + b * b);
         phC.moiInv = 1.f / phC.moi;
         trC.setPosition({ 0, 0 });
         // phC.velocity = Vec2f(10, 0.f);

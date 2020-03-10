@@ -22,7 +22,7 @@ void InteractionSystem::update(epp::EntityManager& entityManager, float dt)
             phC.wheelAngVel[0] = std::clamp(phC.wheelAngVel[0] + 10.f, -5000.f, 5000.f);
         if (controllerModule.getActionKeyState(ActionKey::AccBackward) != KeyState::Released) {
             // phC.wheelAngVel[0] = std::clamp(phC.wheelAngVel[0] - 10.f, -5000.f, 5000.f);
-            phC.wheelAngVel[0] = 0;
+            phC.wheelAngVel[0] *= 0.9f;
         }
         if (controllerModule.getActionKeyState(ActionKey::TurnRight) != KeyState::Released)
             phC.frontWheelsAngle = std::clamp(phC.frontWheelsAngle + toRadians(3.f), -toRadians(45.f), toRadians(45.f));
@@ -35,21 +35,21 @@ void InteractionSystem::update(epp::EntityManager& entityManager, float dt)
         Vec2f imps[2] = {};
         for (int i = 0; i < 2; ++i) {
             Vec2f const rToWheel = Vec2f(static_cast<PolygonShape const&>(shC.getShape()).getDetails().verts[i].x, 0) * asRotationMatrix(trC.getRotation());
-            float const wheelR = 0.25f;
+            float const wheelR = 0.25f;  //radius
             Vec2f const ra(0.f, wheelR); // wheel's local
             Vec2f vRel = phC.velocity * asRotationMatrix(i == 1 ? -wheelsAngle : 0) * asRotationMatrix(-trC.getRotation()) +
                          crossProduct(phC.angularVelocity, rToWheel) * asRotationMatrix(i == 1 ? -wheelsAngle : 0) * asRotationMatrix(-trC.getRotation()) +
                          crossProduct(phC.wheelAngVel[i], ra);
             float vRelY = vRel.y;
             vRel.y = 0;
-            float const wheelMOI = (phC.mass / 2.f * wheelR * wheelR) / 2.f;
+            float const wheelMOI = (phC.mass / 2.f * wheelR * wheelR) / 2.f; //moment bezwladnosci
             float const wheelMOIInv = 1.f / wheelMOI;
             float const wheelMassInv = phC.massInv * 2;
             float denominatorInv = 1.f / (wheelMassInv + dotProduct({ 1, 0 }, crossProduct(wheelMOIInv * crossProduct(ra, { 1, 0 }), ra)));
             Vec2f frictionImpulse = -vRel * denominatorInv;
-            if (frictionImpulse.length() > 0.9f * 50.f * 9.81f * dt * denominatorInv) {
+            if (frictionImpulse.length() > 0.85f * 50.f * 9.81f * dt / wheelMassInv) {
                 std::cout << "Pale gume" << std::endl;
-                frictionImpulse.normalize() *= 0.75f * 50.f * 9.81f * dt * denominatorInv;
+                frictionImpulse.normalize() *= 0.70f * 50.f * 9.81f * dt / wheelMassInv;
             }
             phC.wheelAngVel[i] += wheelMOIInv * crossProduct(ra, frictionImpulse);
             imps[i] = frictionImpulse * asRotationMatrix(i == 1 ? wheelsAngle : 0) * asRotationMatrix(trC.getRotation());
